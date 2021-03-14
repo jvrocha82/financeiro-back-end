@@ -11,7 +11,7 @@ const bankAccountSchema = new schema({
     lastChange:{type:Object, required:false,
         default:{
             value: 0,
-            source: "criacao" ,
+            source: "criação" ,
             description: "Criação da conta bancária",
     }}
 })

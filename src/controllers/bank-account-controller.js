@@ -6,64 +6,31 @@ class bankAccountController {
         const bankAccount = new bankAccountModel(req.body);
         await bankAccount
             .save()
-            .then(response => {
-                return res.status(200).json(response);
-            })
-            .catch(error => {
-                return res.status(500).json(error);
-            })
+            .then(response => res.status(200).json(response))
+            .catch(error => res.status(500).json(error))
     }
 
     async list(req, res) {
         await bankAccountModel.find()
-            .then(response => {
-                if (response)
-                    return res.status(200).json(response);
-                else
-                    return res.status(404).json({ error: "Conta bancária não encontrada" })
-            })
-            .catch(error => {
-                return res.status(500).json(error)
-            })
-
+            .then(response => res.status(200).json(response))
+            .catch(error => res.status(500).json(error))
     }
 
     async find(req, res) {
         await bankAccountModel.findById(req.params.id)
-            .then(response => {
-                if (response)
-                    return res.status(200).json(response);
-                else
-                    return res.status(404).json({ error: "Conta bancária não encontrada" })
-            })
-            .catch(error => {
-                return res.status(500).json(error)
-            })
-
+            .then(response => res.status(200).json(response))
+            .catch(error => res.status(500).json(error))
     }
+
     async delete(req, res) {
         await bankAccountModel.deleteOne({ '_id': req.params.id })
-            .then(response => {
-                if (response)
-                    return res.status(200).json('Conta bancária deletada')
-                else
-                    return res.status(404).json({ error: "Conta bancária não encontrada" })
-            })
-            .catch(error => {
-                return res.status(500).json(error)
-            })
+            .then(() => res.status(200).json('Conta bancária deletada'))
+            .catch(error => res.status(500).json(error))
     }
     async update(req, res) {
         await bankAccountModel.findByIdAndUpdate({ '_id': req.params.id }, req.body, { new: true })
-            .then(response => {
-                if (response)
-                    return res.status(200).json('Conta bancária atualizada com sucesso')
-                else
-                    return res.status(404).json({ error: "Conta bancária não encontrada" })
-            })
-            .catch(error => {
-                return res.status(500).json(error)
-            })
+            .then(response => res.status(200).json(response))
+            .catch(error => res.status(500).json(error))
     }
 }
 module.exports = new bankAccountController();
