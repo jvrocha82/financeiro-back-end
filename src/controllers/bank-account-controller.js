@@ -1,7 +1,7 @@
 const { response } = require('express');
 const bankAccountModel = require('../models/bank-account-model');
 class bankAccountController {
-    
+
     async create(req, res) {
         const bankAccount = new bankAccountModel(req.body);
         await bankAccount
@@ -40,6 +40,18 @@ class bankAccountController {
                 return res.status(500).json(error)
             })
 
+    }
+    async delete(req, res) {
+        await bankAccountModel.deleteOne({ '_id': req.params.id })
+            .then(response => {
+                if (response)
+                    return res.status(200).json('Conta bancária deletada')
+                else
+                    return res.status(404).json({ error: "Conta bancária nao encontrada" })
+            })
+            .catch(error => {
+                return res.status(500).json(error)
+            })
     }
 }
 module.exports = new bankAccountController();

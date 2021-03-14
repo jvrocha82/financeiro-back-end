@@ -12,7 +12,7 @@ const bankAccountSchema = new schema({
         default:{
             value: 0,
             source: "criacao" ,
-            description: "Criação da conta bancaria",
+            description: "Criação da conta bancária",
     }}
 })
 module.exports = mongoose.model('bankAccount', bankAccountSchema);

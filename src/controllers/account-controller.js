@@ -7,10 +7,10 @@ class accountController {
         const dataAccount = {
             ...req.body,
             bankAccount: {
-                _id:dataBanckAccount._id,
-                name:dataBanckAccount.name,
-                number:dataBanckAccount.number,
-                type:dataBanckAccount.type
+                _id: dataBanckAccount._id,
+                name: dataBanckAccount.name,
+                number: dataBanckAccount.number,
+                type: dataBanckAccount.type
             }
         }
         const account = new accountModel(dataAccount);
@@ -32,26 +32,12 @@ class accountController {
                 if (response)
                     return res.status(200).json(response);
                 else
-                    return res.status(404).json({ error: "nenhuma conta encontada" })
+                    return res.status(404).json({ error: "Nenhuma conta encontada" })
             })
             .catch(error => {
                 return res.status(500).json(error);
             })
     }
-    /*
-    async find(req, res) {
-        const id = req.body.id;
-        await accountModel.findById(id)
-            .then(response => {
-                if (response) 
-                    return res.status(200).json(response);
-                else 
-                    return res.status(404).json({ error: "Conta nao encontrada" })
-            })
-            .catch(error => {
-                return res.status(500).json(error);
-            })
-    }*/
 
     async find(req, res) {
         await accountModel.findById(req.params.id)
@@ -63,6 +49,19 @@ class accountController {
             })
             .catch(error => {
                 return res.status(500).json(error);
+            })
+    }
+
+    async delete(req, res) {
+        await accountModel.deleteOne({ '_id': req.params.id })
+            .then(response => {
+                if (response)
+                    return res.status(200).json( "conta deletada com sucesso")
+                else
+                    return res.status(404).json({ error: "Nenhuma conta encontada" })
+            })
+            .catch(error => {
+                return res.status(500).json(error)
             })
     }
 
