@@ -7,9 +7,9 @@ const accountSchema = new schema({
     description: { type: String, required: false },
     type: { type: String, required: true },
     pay: { type: Boolean, required: true, default: false },
-    bankAccount:{type:Object,required:false},
-    when: { type: Date, required: true},
-    creationDate: { type: Date, required: true , default: Date.now()},
-  
+    bankAccount: { type: Object, required: false },
+    when: { type: Date, required: true },
+    creationDate: { type: Date, required: true, default: Date.now() },
+
 })
 module.exports = mongoose.model('account', accountSchema);

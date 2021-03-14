@@ -40,7 +40,7 @@ class accountController {
             .then(() => res.status(200).json("conta deletada com sucesso"))
             .catch(error => res.status(500).json(error))
     }
-    
+
     async update(req, res) {
         await accountModel.findByIdAndUpdate({ '_id': req.params.id }, req.body, { new: true })
             .then(response => res.status(200).json(response))
