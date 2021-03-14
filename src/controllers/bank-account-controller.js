@@ -20,7 +20,7 @@ class bankAccountController {
                 if (response)
                     return res.status(200).json(response);
                 else
-                    return res.status(404).json({ error: "Conta bancária nao encontrada" })
+                    return res.status(404).json({ error: "Conta bancária não encontrada" })
             })
             .catch(error => {
                 return res.status(500).json(error)
@@ -34,7 +34,7 @@ class bankAccountController {
                 if (response)
                     return res.status(200).json(response);
                 else
-                    return res.status(404).json({ error: "Conta bancária nao encontrada" })
+                    return res.status(404).json({ error: "Conta bancária não encontrada" })
             })
             .catch(error => {
                 return res.status(500).json(error)
@@ -47,7 +47,19 @@ class bankAccountController {
                 if (response)
                     return res.status(200).json('Conta bancária deletada')
                 else
-                    return res.status(404).json({ error: "Conta bancária nao encontrada" })
+                    return res.status(404).json({ error: "Conta bancária não encontrada" })
+            })
+            .catch(error => {
+                return res.status(500).json(error)
+            })
+    }
+    async update(req, res) {
+        await bankAccountModel.findByIdAndUpdate({ '_id': req.params.id }, req.body, { new: true })
+            .then(response => {
+                if (response)
+                    return res.status(200).json('Conta bancária atualizada com sucesso')
+                else
+                    return res.status(404).json({ error: "Conta bancária não encontrada" })
             })
             .catch(error => {
                 return res.status(500).json(error)
