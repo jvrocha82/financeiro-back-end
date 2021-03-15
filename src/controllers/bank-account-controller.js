@@ -1,4 +1,3 @@
-const { response } = require('express');
 const bankAccountModel = require('../models/bank-account-model');
 class bankAccountController {
 

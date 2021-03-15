@@ -3,7 +3,15 @@ const bankAccountModel = require('../models/bank-account-model');
 class accountController {
 
     async create(req, res) {
-        const dataBanckAccount = await bankAccountModel.findById(req.body.bankAccount)
+
+        const dataBanckAccount = await bankAccountModel.findByIdAndUpdate(req.body.bankAccount).catch()
+
+        const newBalance = req.body.type === 'entrada' ? dataBanckAccount.balance + req.body.value : dataBanckAccount.balance - req.body.value;
+        await bankAccountModel.findByIdAndUpdate({ '_id': req.body.bankAccount },
+            { 'balance': newBalance }, { new: true })
+
+        console.log(newBalance)
+
         const dataAccount = {
             ...req.body,
             bankAccount: {
@@ -14,13 +22,12 @@ class accountController {
             }
         }
         const account = new accountModel(dataAccount);
-        account.pay = true;
-
         await account
             .save()
             .then(response => res.status(200).json(response))
             .catch(error => res.status(500).json(error))
     }
+
 
     async list(req, res) {
         await accountModel.find()
